@@ -247,7 +247,7 @@
                 <div class="w-[150px] px-6 h-full my-auto font-bold dark:text-white">{{ item.parameter }}</div>
                 <div v-for="path in item.path" class="w-[310px] px-4 py-2">
                   <audio controls>
-                    <source :src="'data/dataset_egs/' + path">
+                    <source :src="'static/data/dataset_egs/' + path">
                   </audio>
                 </div>
               </div>
@@ -293,7 +293,7 @@
                       class="flex bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <div v-for="sound in data_model_egs_sounds" class="w-[300px] px-4 py-2">
                         <audio controls class="mx-auto w-[280px]" controlsList="nodownload noremoteplayback">
-                          <source :src="'data/model_egs/' + lang_egs.path + '/' + item.path + '/' + sound.path">
+                          <source :src="'static/data/model_egs/' + lang_egs.path + '/' + item.path + '/' + sound.path">
                         </audio>
                       </div>
                     </div>
@@ -322,7 +322,7 @@
                 class="flex bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                 <div v-for="sound in data_plugin_egs_sounds" class="w-[260px] px-4 py-2">
                   <audio controls class="w-[250px]" controlsList="nodownload noremoteplayback">
-                    <source :src="'data/plugin_egs/' + item.path + '/' + sound.path">
+                    <source :src="'static/data/plugin_egs/' + item.path + '/' + sound.path">
                   </audio>
                 </div>
               </div>
