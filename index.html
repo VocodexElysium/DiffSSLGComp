@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diff-SSL-G-Comp Demo Page</title>
+  <script src="./static/tailwind.js"></script>
+  <script src="./static/vue.global.js"></script>
+  <script src="./static/flowbite.min.js"></script>
+  <script src="./static/d3.v7.min.js"></script>
+  <style type="text/tailwindcss">
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
+
+    @layer base {
+      a[href^="http"] {
+        @apply text-blue-500;
+      }
+
+      a:hover {
+        @apply text-blue-700 underline;
+      }
+
+      h1 {
+        @apply mb-6 text-4xl font-bold text-gray-900 dark:text-white text-center;
+      }
+
+      h4 {
+        @apply mb-4 pt-12 text-3xl font-semibold text-gray-900 dark:text-white;
+      }
+
+      h5 {
+        @apply mb-3 pt-4 text-2xl font-bold tracking-tight text-gray-900 dark:text-white;
+      }
+
+      p {
+        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+      }
+    }
+
+    @layer components {
+      .list-select {
+        @apply block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent;
+      }
+
+      .tooltip {
+        position: absolute;
+        text-align: center;
+        padding: 8px;
+        font: 12px sans-serif;
+        background: lightsteelblue;
+        border: 0;
+        border-radius: 8px;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .text-p {
+        @apply mb-4 font-normal text-gray-900 dark:text-gray-400 leading-relaxed;
+      }
+
+      .author {
+        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 inline-block;
+      }
+
+      .affiliation {
+        @apply font-medium mr-2 pb-1 text-gray-900 dark:text-gray-400 block;
+      }
+    }
+  </style>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {}
+        }
+      }
+    }
+  </script>
+</head>
+
+<body class="dark:bg-gray-900">
+  <div id="app">
+
+    <nav
+      class="bg-white fixed w-full z-20 top-0 start-0 border-gray-200 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-600">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-3">
+        <button data-collapse-toggle="navbar-default" type="button"
+          class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          aria-controls="navbar-default" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M1 1h15M1 7h15M1 13h15" />
+          </svg>
+        </button>
+
+        <div class="hidden w-full md:block md:w-auto ml-auto" id="navbar-default">
+          <ul
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+            <li>
+              <a href="#home" class="list-select">Home</a>
+            </li>
+            <li>
+              <a href="#dataset" class="list-select">Dataset</a>
+            </li>
+            <li>
+              <a href="#demos" class="list-select">Demos</a>
+            </li>
+            <li>
+              <a href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp" class="list-select" target="_blank">
+                <img class="h-6 w-6" src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="p-5 md:p-0 mt-16 max-w-screen-xl mx-auto">
+      <div class="p-6" id="home">
+
+        <div class="mt-8 mb-8">
+          <h1>Diff-SSL-G-Comp: Towards a Large-Scale and Diverse Dataset <br> for Virtual Analog Modeling</h1>
+        </div>
+
+        <div class="flex gap-2 justify-center flex-wrap">
+          <!-- <a href="https://arxiv.org/abs/2407.05361" target="_blank">
+            <img src="https://img.shields.io/badge/arXiv-Paper-COLOR.svg">
+          </a> -->
+          <a href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp" target="_blank">
+            <img src="https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Dataset-yellow">
+          </a>
+          <!-- <a href="https://opendatalab.com/Amphion/Emilia" target="_blank">
+            <img src="https://img.shields.io/badge/OpenDataLab-Dataset-blue">
+          </a> -->
+          <a href="https://www.yichenggu.com/DiffSSLGComp/" target="_blank">
+            <img src="https://img.shields.io/badge/WebPage-Demo-red">
+          </a>
+        </div>
+
+        <div class="max-w-[900px] mx-auto mt-8 mb-16">
+          <div class="text-center pb-10 flex flex-col gap-3">
+            <div class="text-sm">
+              <span class="author">Yicheng Gu<sup>1,2,★</sup> </span>
+              <span class="author">Runsong Zhang<sup>2,★</sup> </span>
+              <span class="author">Lauri Juvela<sup>1</sup> </span>
+              <span class="author">Zhizheng Wu<sup>2</sup></span>
+            </div>
+            <div class="text-sm">
+              <span class="affiliation"><sup>1</sup> Acoustic Lab, Department of Information and Communication
+                Engineering, Aalto University, Espoo, Finland</span>
+              <span class="affiliation"><sup>2</sup> School of Data Science, The Chinese University of Hong Kong,
+                Shenzhen, Guangdong,
+                China</span>
+            </div>
+            <div class="text-sm">
+              <span class="author"><sup>★</sup> Equal Contribution</span>
+            </div>
+          </div>
+          <h5>Abstract</h5>
+          <p class="text-p">
+            Virtual Analog (VA) modeling aims to simulate the behavior of hardware circuits via algorithms to replicate
+            their tone digitally. Dynamic Range Compressor (DRC) is an audio processing module that controls the
+            dynamics of a track by reducing and amplifying the volumes of loud and quiet sounds, which is essential in
+            music production. In recent years, neural-network-based VA modeling has shown great potential in producing
+            high-fidelity models. However, due to the lack of data quantity and diversity, their generalization ability
+            in different parameter settings and input sounds is still limited. To tackle this problem, we present
+            Diff-SSL-G-Comp, the first large-scale and diverse dataset for modeling the SSL 500 G-Bus Compressor.
+            Specifically, we manually collected 175 unmastered songs from the Cambridge Multitrack Library. We recorded
+            the compressed audio in 220 parameter combinations, resulting in an extensive 2528-hour dataset with diverse
+            genres, instruments, tempos, and keys. Moreover, to facilitate the use of our proposed dataset, we conducted
+            benchmark experiments in various open-sourced black-box and grey-box models, as well as white-box plugins.
+            We also conducted ablation studies in different data subsets to illustrate the effectiveness of improved
+            data diversity and quantity. The dataset and demos are on our project page: <a
+              href="http://www.yichenggu.com/DiffSSLGComp/">http://www.yichenggu.com/DiffSSLGComp/</a>.
+          </p>
+        </div>
+
+        <h4 id="dataset">Diff-SSL-G-Comp</h4>
+
+        <h5 id="dataset-overview">Overview</h5>
+        <p class="text-p">
+          <code>Diff-SSL-G-Comp</code> is constructed from processing 175 unmastered songs from the <a
+            href="https://www.cambridge-mt.com/ms/mtk/">Cambridge Multitrack Library</a> with 220 different parameter
+          conbinations. It comprises 2258 hours of processed data with diverse genres, instruments, tempos, and keys,
+          as illustrated below.
+        </p>
+
+        <div class="w-full">
+          <img class="mx-auto max-h-[700px]" src="./static/table_new.jpg"></img>
+        </div>
+
+        <br>
+        The statistics of the unmastered songs used as input signals by genres and instruments are shown below.
+        <br>
+
+        <div class="w-full">
+          <img class="mx-auto max-h-[300px]" src="./static/statistics_1_new.jpg"></img>
+        </div>
+
+        <br>
+        The statistics of the unmastered songs used as input signals by tempos and keys are shown below.
+        <br>
+        <br>
+
+        <div class="w-full">
+          <img class="mx-auto max-h-[400px]" src="./static/statistics_2_new.jpg"></img>
+        </div>
+
+        <br>
+        <p class="text-p">
+          The figure below compares the acoustic and semantic diversities between Diff-SSL-G-Comp and existing datasets,
+          which are sourced mainly from noises and test signals. The more scattered pattern in the cluster representing
+          the real-world recordings highlights our dataset as encompassing a richer acoustic characteristic and semantic
+          coverage than the existing datasets.
+        </p>
+        <br>
+
+        <div class="w-full">
+          <img class="mx-auto max-h-[550px]" src="./static/diversity_new.jpg"></img>
+        </div>
+
+        <h5>Data Preview</h5>
+        <p class="text-p">
+          To better understand the diversity and quality of the dataset, we
+          have sampled a few examples below for preview.
+        </p>
+
+        <!-- data_pipeline_egs:table -->
+        <div class="w-full overflow-x-auto">
+          <div class="relative w-fit mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <div class="flex text-center bg-gray-50 dark:bg-gray-700">
+              <div
+                v-for="item in [{name: 'Style', width: 100}, {name: 'Parameters', width: 150}, {name: 'Original', width: 310}, {name: 'Compressed', width: 310}]"
+                scope="col" :class="'w-[' + (item.width ?? 300) +'px] shrink-0 px-6 py-4 font-bold'">{{
+                item.name }}</div>
+            </div>
+            <!-- body -->
+            <div v-for="(item, index) in data_dataset_egs">
+              <div
+                class="flex bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <div class="w-[100px] px-6 h-full my-auto font-bold dark:text-white">{{ item.name }}</div>
+                <div class="w-[150px] px-6 h-full my-auto font-bold dark:text-white">{{ item.parameter }}</div>
+                <div v-for="path in item.path" class="w-[310px] px-4 py-2">
+                  <audio controls>
+                    <source :src="'data/dataset_egs/' + path">
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 id="demos">Demos</h4>
+        <p class="text-p">
+          In this section, we demonstrate the virtual analog modeling performance of the representative black-box and
+          grey-box models trained on Diff-SSL-G-Comp, as well as samples generated by white-box commercial plugins.
+        </p>
+
+        <p class="text-p">
+          All the experimental checkpoints demonstrated in the paper can be found on our <a
+            href="https://drive.google.com/drive/folders/1zf5hnF7XGRW-poo_cqjQthKBeAZx33gd?usp=drive_link">Google
+            Drive</a>, and all the
+          samples generated by the commercial plugins can be found on the <a
+            href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp">Hugging Face dataset page</a>. Model
+          configurations and usage guides are also attached. We highly recommend that researchers run these experiments
+          by hand since it is usually hard to hear the significant difference in compression models.
+        </p>
+
+        <h5 id="multilingual-samples">Samples generated by black-box and grey-box models</h5>
+
+        <!-- data_multilingual_egs:table -->
+        <div class="w-full overflow-x-auto my-4">
+          <div class="relative  w-[2400px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <div class="flex text-center bg-gray-50 dark:bg-gray-700">
+              <div v-for="item in [...data_model_egs_sounds]" scope="col"
+                :class="'w-[' + (item.width ?? 300) +'px] shrink-0 px-6 py-4 font-bold'">{{
+                item.name }}</div>
+            </div>
+
+            <!-- body -->
+            <div v-for="(lang_egs, index) in data_model_egs">
+              <div
+                class="flex w-full bg-white dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+
+                <div>
+                  <div v-for="item in lang_egs.items">
+                    <div
+                      class="flex bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                      <div v-for="sound in data_model_egs_sounds" class="w-[300px] px-4 py-2">
+                        <audio controls class="mx-auto w-[280px]" controlsList="nodownload noremoteplayback">
+                          <source :src="'data/model_egs/' + lang_egs.path + '/' + item.path + '/' + sound.path">
+                        </audio>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <h5 id="en-samples">Samples generated by white-box commercial plugins
+        </h5>
+
+        <!-- data_model_egs:table -->
+        <div class="w-full overflow-x-auto my-4">
+          <div class="relative w-fit mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+            <div class="flex w-fit text-center bg-gray-50 dark:bg-gray-700">
+              <div v-for="item in data_plugin_egs_sounds" scope="col" class="w-[260px] shrink-0 px-6 py-4 font-bold">{{
+                item.name }}</div>
+            </div>
+
+            <!-- body -->
+            <div v-for="(item, index) in data_plugin_egs">
+              <div
+                class="flex bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                <div v-for="sound in data_plugin_egs_sounds" class="w-[260px] px-4 py-2">
+                  <audio controls class="w-[250px]" controlsList="nodownload noremoteplayback">
+                    <source :src="'data/plugin_egs/' + item.path + '/' + sound.path">
+                  </audio>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      setup() {
+        const data_dataset_egs = [
+          {
+            name: "Pop",
+            parameter: "Threashold:-24 Attack:3 Release:0.4 Ratio:2",
+            path: [
+              "pop_origin.wav",
+              "pop_compressed.wav",
+            ]
+          },
+          {
+            name: "Jazz",
+            parameter: "Threashold:-24 Attack:10 Release:0.8 Ratio:10",
+            path: [
+              "jazz_origin.wav",
+              "jazz_compressed.wav",
+            ]
+          },
+          {
+            name: "Folk",
+            parameter: "Threashold:-20 Attack:1 Release:0.1 Ratio:4",
+            path: [
+              "folk_origin.wav",
+              "folk_compressed.wav",
+            ]
+          },
+          {
+            name: "Rock",
+            parameter: "Threashold:-20 Attack:30 Release:auto Ratio:2",
+            path: [
+              "rock_origin.wav",
+              "rock_compressed.wav",
+            ]
+          },
+          {
+            name: "Metal",
+            parameter: "Threashold:-28 Attack:1 Release:auto Ratio:10",
+            path: [
+              "metal_origin.wav",
+              "metal_compressed.wav",
+            ]
+          },
+          {
+            name: "Punk",
+            parameter: "Threashold:-28 Attack:3 Release:0.4 Ratio:4",
+            path: [
+              "punk_origin.wav",
+              "punk_compressed.wav",
+            ]
+          },
+        ]
+
+        const data_plugin_egs_sounds = [
+          {
+            name: "Original",
+            path: "original.wav"
+          },
+          {
+            name: "Compressed",
+            path: "compressed.wav"
+          },
+          {
+            name: "Solid State Logic",
+            path: "solid_state_logic.wav"
+          },
+          {
+            name: "Softube",
+            path: "softube.wav"
+          },
+          {
+            name: "Overloud",
+            path: "overloud.wav"
+          },
+          {
+            name: "PSPaudioware",
+            path: "pspaudioware.wav"
+          },
+        ]
+
+        const data_model_egs_sounds = [
+          {
+            name: "Original",
+            path: "original.wav"
+          },
+          {
+            name: "Compressed",
+            path: "compressed.wav"
+          },
+          {
+            name: "LSTM",
+            path: "lstm.wav"
+          },
+          {
+            name: "TCN",
+            path: "tcn.wav"
+          },
+          {
+            name: "GCN",
+            path: "gcn.wav"
+          },
+          {
+            name: "S4",
+            path: "s4.wav"
+          },
+          {
+            name: "GreyBoxDRC",
+            path: "greybox.wav"
+          },
+          {
+            name: "ToneTwist",
+            path: "tonetwist.wav"
+          },
+        ]
+
+        const data_plugin_egs = [
+          {
+            path: "1",
+          },
+          {
+            path: "2",
+          },
+          {
+            path: "3",
+          },
+        ]
+
+        const data_model_egs = [
+          {
+            name: "Pop",
+            path: "1",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+          {
+            name: "Folk",
+            path: "2",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+          {
+            name: "Classical",
+            path: "3",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+          {
+            name: "Rap",
+            path: "4",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+          {
+            name: "Rock",
+            path: "5",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+          {
+            name: "Metal",
+            path: "6",
+            items: [
+              {
+                path: "1",
+              }
+            ]
+          },
+        ]
+
+        return {
+          data_dataset_egs,
+          data_plugin_egs_sounds,
+          data_model_egs_sounds,
+          data_plugin_egs,
+          data_model_egs
+        }
+      }
+    })
+
+    app.mount('#app')
+  </script>
+</body>
+
+</html>
