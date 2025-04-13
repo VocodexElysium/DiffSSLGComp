@@ -272,7 +272,7 @@
 
         <!-- data_multilingual_egs:table -->
         <div class="w-full overflow-x-auto my-4">
-          <div class="relative  w-[2400px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
+          <div class="relative  w-[2100px] mx-auto text-sm text-left rtl:text-right text-gray-900 dark:text-gray-100">
             <div class="flex text-center bg-gray-50 dark:bg-gray-700">
               <div v-for="item in [...data_model_egs_sounds]" scope="col"
                 :class="'w-[' + (item.width ?? 300) +'px] shrink-0 px-6 py-4 font-bold'">{{
@@ -386,11 +386,7 @@
 
         const data_plugin_egs_sounds = [
           {
-            name: "Original",
-            path: "original.wav"
-          },
-          {
-            name: "Compressed",
+            name: "Target",
             path: "compressed.wav"
           },
           {
@@ -413,11 +409,7 @@
 
         const data_model_egs_sounds = [
           {
-            name: "Original",
-            path: "original.wav"
-          },
-          {
-            name: "Compressed",
+            name: "Target",
             path: "compressed.wav"
           },
           {
