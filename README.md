@@ -1,1 +1,1 @@
-# This is the DEMO page for Diff-SSL-G-Comp
+# This is the DEMO page for SolidStateBusComp
