@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Diff-SSL-G-Comp Demo Page</title>
+  <title>SolidStateBusComp Demo Page</title>
   <script src="./static/tailwind.js"></script>
   <script src="./static/vue.global.js"></script>
   <script src="./static/flowbite.min.js"></script>
@@ -111,7 +111,7 @@
               <a href="#demos" class="list-select">Demos</a>
             </li>
             <li>
-              <a href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp" class="list-select" target="_blank">
+              <a href="https://huggingface.co/datasets/amphion/SolidStateBusComp" class="list-select" target="_blank">
                 <img class="h-6 w-6" src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" />
               </a>
             </li>
@@ -124,18 +124,16 @@
       <div class="p-6" id="home">
 
         <div class="mt-8 mb-8">
-          <h1>Diff-SSL-G-Comp: Towards a Large-Scale and Diverse Dataset <br> for Virtual Analog Modeling</h1>
+          <h1>Solid State Bus-Comp: A Large-Scale and Diverse Dataset for Dynamic Range Compressor Virtual Analog
+            Modeling</h1>
         </div>
 
         <div class="flex gap-2 justify-center flex-wrap">
           <a href="https://arxiv.org/abs/2504.04589" target="_blank">
             <img src="https://img.shields.io/badge/arXiv-Paper-COLOR.svg">
           </a>
-          <a href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp" target="_blank">
+          <a href="https://huggingface.co/datasets/amphion/SolidStateBusComp" target="_blank">
             <img src="https://img.shields.io/badge/%F0%9F%A4%97%20HuggingFace-Dataset-yellow">
-          </a>
-          <a href="https://www.yichenggu.com/DiffSSLGComp/" target="_blank">
-            <img src="https://img.shields.io/badge/WebPage-Demo-red">
           </a>
         </div>
 
@@ -165,30 +163,30 @@
             dynamics of a track by reducing and amplifying the volumes of loud and quiet sounds, which is essential in
             music production. In recent years, neural-network-based VA modeling has shown great potential in producing
             high-fidelity models. However, due to the lack of data quantity and diversity, their generalization ability
-            in different parameter settings and input sounds is still limited. To tackle this problem, we present
-            Diff-SSL-G-Comp, the first large-scale and diverse dataset for modeling the SSL 500 G-Bus Compressor.
-            Specifically, we manually collected 175 unmastered songs from the Cambridge Multitrack Library. We recorded
-            the compressed audio in 220 parameter combinations, resulting in an extensive 2528-hour dataset with diverse
-            genres, instruments, tempos, and keys. Moreover, to facilitate the use of our proposed dataset, we conducted
-            benchmark experiments in various open-sourced black-box and grey-box models, as well as white-box plugins.
-            We also conducted ablation studies in different data subsets to illustrate the effectiveness of improved
-            data diversity and quantity. The dataset and demos are on our project page: <a
-              href="http://www.yichenggu.com/DiffSSLGComp/">http://www.yichenggu.com/DiffSSLGComp/</a>.
+            in different parameter settings and input sounds is still limited. To tackle this problem, we present Solid
+            State Bus-Comp, the first large-scale and diverse dataset for modeling the classical VCA compressor --- SSL
+            500 G-Bus. Specifically, we manually collected 175 unmastered songs from the Cambridge Multitrack Library.
+            We recorded the compressed audio in 220 parameter combinations, resulting in an extensive 2528-hour dataset
+            with diverse genres, instruments, tempos, and keys. Moreover, to facilitate the use of our proposed dataset,
+            we conducted benchmark experiments in various open-sourced black-box and grey-box models, as well as
+            white-box plugins. We also conducted ablation studies in different data subsets to illustrate the
+            effectiveness of the improved data diversity and quantity. The dataset and demos are on our project page: <a
+              href="https://www.yichenggu.com/SolidStateBusComp/">https://www.yichenggu.com/SolidStateBusComp/</a>.
           </p>
         </div>
 
-        <h4 id="dataset">Diff-SSL-G-Comp</h4>
+        <h4 id="dataset">SolidStateBusComp</h4>
 
         <h5 id="dataset-overview">Overview</h5>
         <p class="text-p">
-          <code>Diff-SSL-G-Comp</code> is constructed from processing 175 unmastered songs from the <a
+          <code>SolidStateBusComp</code> is constructed from processing 175 unmastered songs from the <a
             href="https://www.cambridge-mt.com/ms/mtk/">Cambridge Multitrack Library</a> with 220 different parameter
           conbinations. It comprises 2258 hours of processed data with diverse genres, instruments, tempos, and keys,
           as illustrated below.
         </p>
 
         <div class="w-full">
-          <img class="mx-auto max-h-[600px]" src="./static/table_new.jpg"></img>
+          <img class="mx-auto max-h-[600px]" src="./static/table.png"></img>
         </div>
 
         <br>
@@ -210,7 +208,8 @@
 
         <br>
         <p class="text-p">
-          The figure below compares the acoustic and semantic diversities between Diff-SSL-G-Comp and existing datasets,
+          The figure below compares the acoustic and semantic diversities between SolidStateBusComp and existing
+          datasets,
           which are sourced mainly from noises and test signals. The more scattered pattern in the cluster representing
           the real-world recordings highlights our dataset as encompassing a richer acoustic characteristic and semantic
           coverage than the existing datasets.
@@ -218,7 +217,7 @@
         <br>
 
         <div class="w-full">
-          <img class="mx-auto max-h-[400px]" src="./static/diversity_new.jpg"></img>
+          <img class="mx-auto max-h-[400px]" src="./static/diversity.png"></img>
         </div>
 
         <h5>Data Preview</h5>
@@ -255,7 +254,7 @@
         <h4 id="demos">Demos</h4>
         <p class="text-p">
           In this section, we demonstrate the virtual analog modeling performance of the representative black-box and
-          grey-box models trained on Diff-SSL-G-Comp, as well as samples generated by white-box commercial plugins.
+          grey-box models trained on SolidStateBusComp, as well as samples generated by white-box commercial plugins.
         </p>
 
         <p class="text-p">
@@ -263,7 +262,7 @@
             href="https://drive.google.com/drive/folders/1zf5hnF7XGRW-poo_cqjQthKBeAZx33gd?usp=drive_link">Google
             Drive</a>, and all the
           samples generated by the commercial plugins can be found on the <a
-            href="https://huggingface.co/datasets/amphion/Diff-SSL-G-Comp">Hugging Face dataset page</a>. Model
+            href="https://huggingface.co/datasets/amphion/SolidStateBusComp">Hugging Face dataset page</a>. Model
           configurations and usage guides are also attached. We highly recommend that researchers run these experiments
           by hand since it is usually hard to hear the significant difference in compression models.
         </p>
